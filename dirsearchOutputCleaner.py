@@ -29,7 +29,7 @@ else:
     f.close()
 
 
-    if teste_urls == True:
+    if teste_urls == '-t' or teste_urls =='--teste':
         with open('cleaned_dirsearch_output.txt', 'r') as url_limpos:
             for url in url_limpos:
                 response = requests.get(url)
