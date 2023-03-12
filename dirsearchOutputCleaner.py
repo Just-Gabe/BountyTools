@@ -1,5 +1,8 @@
 import re
 import sys
+import requests
+  
+teste_urls = sys.argv[2]
 
 if sys.argv[1] == '-h':
     print('dê um path')
@@ -23,5 +26,13 @@ else:
     for i in urls:
         for url in i:
             f.write(url + '\n')
-    f.close() 
+    f.close()
+
+
+    if teste_urls:
+        with open('cleaned_dirsearch_output.txt', 'r') as url_limpos:
+            for url in url_limpos:
+                response = requests.get(url)
+                print(f'{url}: ',response.status_code)
+
 
