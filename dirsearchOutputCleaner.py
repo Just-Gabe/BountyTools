@@ -5,7 +5,9 @@ import requests
 teste_urls = sys.argv[2]
 
 if sys.argv[1] == '-h':
-    print('dê um path')
+    print('[ * ] O programa precisa de um path para o arquivo com urls')
+    print('[ * ] -t ou --teste testa cada url passada no arquivo')
+    print('')
 
 else:
     path = sys.argv[1]
@@ -33,6 +35,6 @@ else:
         with open('cleaned_dirsearch_output.txt', 'r') as url_limpos:
             for url in url_limpos:
                 response = requests.get(url)
-                print(f'{url}: ',response.status_code)
+                print(f'[ * ] {url}:{response.status_code}')
 
 
