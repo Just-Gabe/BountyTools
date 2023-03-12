@@ -1,15 +1,10 @@
 import re
 import sys
 import requests
-  
-teste_urls = sys.argv[2]
 
-if sys.argv[1] == '-h':
-    print('[ * ] O programa precisa de um path para o arquivo com urls')
-    print('[ * ] -t ou --teste testa cada url passada no arquivo')
-    print('')
-
-else:
+n = len(sys.argv)
+if n >=3:
+    teste_urls = sys.argv[2]
     path = sys.argv[1]
 
     urls=[]
@@ -35,6 +30,7 @@ else:
         with open('cleaned_dirsearch_output.txt', 'r') as url_limpos:
             for url in url_limpos:
                 response = requests.get(url)
-                print(f'[ * ] {url}:{response.status_code}')
-
-
+                print('[ * ] ', url.replace("\n", ""),':',response.status_code)
+else:
+    print('[ * ] O programa precisa de um path para o arquivo com urls')
+    print('[ * ] -t ou --teste testa cada url passada no arquivo')
