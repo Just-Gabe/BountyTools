@@ -1,6 +1,23 @@
 import re
 import sys
 import requests
+from threading import Thread
+
+def task_teste():
+    out = []
+    with open('cleaned_dirsearch_output.txt', 'r') as url_limpos:
+        print(f'[ * ] Teste em: {contagem} urls')
+        for url in url_limpos:
+            response = requests.get(url)
+            url_noNL = url.replace("\n", "")
+            print(f'[ * ] {url_noNL}: {response.status_code}')
+            out.append(f'[ * ] {url_noNL}: {response.status_code}\n')
+            if output_test:
+                output = open(output_test, 'a')
+                for o in out:
+                    output.write(o)
+                output.close()
+    
 
 n = len(sys.argv)
 if n >=3:
@@ -31,19 +48,13 @@ if n >=3:
     print(f'[ * ] {contagem} urls limpas')
     
     if teste_urls == '-t' or teste_urls =='--teste':
-        out = []
-        with open('cleaned_dirsearch_output.txt', 'r') as url_limpos:
-            print(f'[ * ] Teste em: {contagem} urls')
-            for url in url_limpos:
-                response = requests.get(url)
-                url_noNL = url.replace("\n", "")
-                print(f'[ * ] {url_noNL}: {response.status_code}')
-                out.append(f'[ * ] {url_noNL}: {response.status_code}\n')
-                if output_test:
-                    output = open(output_test, 'a')
-                    for o in out:
-                        output.write(o)
-                    output.close()
+        # create a thread
+        thread = Thread(target=task_teste, name='testes')
+        # run the thread
+        thread.start()
+        # wait for the thread to finish
+        print('Waiting for the thread...')
+        thread.join()
 
 
 else:
